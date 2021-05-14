@@ -3,3 +3,4 @@
 - [Requirements](requirements.md)
 - [Plan](plan.md)
 - [Architecture](architecture.md)
+- [Pages](pages.md)

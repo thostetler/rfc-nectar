@@ -7,5 +7,8 @@
   "dependencies": {
     "docsify": "^4.12.1",
     "docsify-cli": "^4.4.3"
+  },
+  "scripts": {
+    "start": "docsify serve docs"
   }
 }
