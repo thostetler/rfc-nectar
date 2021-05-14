@@ -90,3 +90,94 @@ We would, in this case, move the search logic upwards into the `Page` machine. W
 ```
 
 We should strive to keep all state local, only moving it upwards as necessary.
+
+### Page Transitions
+
+In Bumblebee, page transitions are seamless since they happen completely on the client. This is not the case with the proposed system (using Next.js).
+
+This is because Next.js splits the application into separate bundles for each page, attempting to minimize the amount downloaded per-route. This is, in some ways, better than the SPA approach since it allows us to isolate pages explicitly by stating our imports. Next.js is smart enough, however to make sure that pages with common imports recieve a common bundle that isn't re-downloaded when transitioning
+
+## Server side
+
+Next.js utilizes Express for its backend stack. We aren't stuck with this choice, however, Next.js has guides on how to use any number of different servers.  
+Express, for our purposes, should work fine.
+
+The way that we see the "backend" part of the application is only a middleman between the client and the REST API that drives ADS currently. For example:
+
+```mermaid
+flowchart LR
+  A(REST API)
+  B(Node.js Server)
+  B1(Node.js API Wrapper)
+  C(Client)
+  subgraph Remote
+  A
+  end
+  subgraph Backend
+  B <--> B1
+  B1 <--> A
+  end
+  subgraph Frontend
+  B <--> C
+  C <--> B1
+  end
+```
+
+### Token management
+
+Currently how tokens work in Bumblebee:
+
+1. After initial load, client makes GET request to `/bootstrap` (after checking if it has user data locally and not expired)
+2. The bootstrap call returns a set of user data, this looks like this:
+
+```json
+{
+  "username": "username@email.com",
+  "scopes": [
+    "api",
+    "user",
+    "store-query",
+    "execute-query",
+    "store-preferences"
+  ],
+  "client_id": "AAA9eYcnw...",
+  "access_token": "AAA1m2w...",
+  "client_name": "BB client",
+  "token_type": "Bearer",
+  "ratelimit": 1.0,
+  "anonymous": false,
+  "client_secret": "AAAH4n...",
+  "expire_in": "2500-01-01T00:00:00",
+  "refresh_token": "mkNyH8b..."
+}
+```
+
+It is also possible for the user to be `anonymous`. In this case, the token has a shorter expiration. 3. After this is recieved, the client will make all API calls using this token.
+
+Since Bumblebee is a SPA, this bumblebee call should, in theory only be called once -- since the page never refreshes during a normal session.
+
+In the proposed system, we have a hybrid approach. But ultimately it is the same thing, only done serverside and using a local session. Basically:
+
+1. Server receives request for a particular route
+2. Before rendering, it will call `getServersideProps` or whatever server-side function that is exported by the page assigned to that route.
+3. As part of this call, it will use the `node.js API wrapper` to call `/bootstrap` and receive this user data
+4. This data will be placed into the current session, which is used server-side and passed to the page (as props)
+
+The downside to this approach is that we have to provide this logic of checking for the session data, expiration, etc. each time a page, that has serverside requirements, is loaded.
+
+We should be able to cut down on the repetitive code by utilizing HOCs and possibly the number of calls by storing the user data in local storage.
+
+For example:
+
+```js
+// withSessionData.ts
+export const withSessionData = (cb) => {
+  // get session data, update context and types
+  cb(augmentedContext);
+};
+
+// landingPage.tsx
+export const getServersideProps = withSessionData((context) => {
+  return { props: { data } };
+});
+```

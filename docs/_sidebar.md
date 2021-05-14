@@ -1,5 +1,6 @@
 - [Home](/)
 - [Why?](why.md)
+- [Goals](goals.md)
 - [Requirements](requirements.md)
 - [Plan](plan.md)
 - [Architecture](architecture.md)
