@@ -1,0 +1,25 @@
+# Requirements
+
+- Server side rendered following ADS Core pattern
+  - Minimal search capabilities when JavaScript is not enabled
+    - No user accounts
+  - Cookie-based sessions
+    - Bootstrap and store access token if not present
+    - Re-use access token if already present
+    - Rate-limit number of bootstraps per IP
+    - Rate-limit number of exceptions for verified bots (e.g. Google bots)
+  - Internal node-based ADS API implementation
+  - Search engine bots/crawlers
+    - Provide service side rendered /abs/ endpoint
+- Client-side JavaScript
+  - Enriched features
+    - Facets
+    - Exploratory views (e.g., metrics, networks)
+    - User accounts
+    - ORCID mode
+    - Recording mode: register all user actions to transform them into a downloadable script (Python) showcasing how to use the API
+    - Configurable for Astrophysics, Earth Science, Biosciences...
+- Configurable themes (facets, search forms, autocomplete) for different domains (astrophysics, earth sciences…)
+- Automatic light/dark mode
+- Responsive design
+- Small and fast
