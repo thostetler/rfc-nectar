@@ -99,7 +99,7 @@ This is because Next.js splits the application into separate bundles for each pa
 
 ## Server side
 
-Next.js utilizes Express for its backend stack. We aren't stuck with this choice, however, Next.js has guides on how to use any number of different servers.  
+Next.js utilizes Express for its backend stack. We aren't stuck with this choice, however, Next.js has guides on how to use any number of different servers.
 Express, for our purposes, should work fine.
 
 The way that we see the "backend" part of the application is only a middleman between the client and the REST API that drives ADS currently. For example:
@@ -152,7 +152,9 @@ Currently how tokens work in Bumblebee:
 }
 ```
 
-It is also possible for the user to be `anonymous`. In this case, the token has a shorter expiration. 3. After this is recieved, the client will make all API calls using this token.
+It is also possible for the user to be `anonymous`. In this case, the token has a shorter expiration.
+
+3. After this is recieved, the client will make all API calls using this token.
 
 Since Bumblebee is a SPA, this bumblebee call should, in theory only be called once -- since the page never refreshes during a normal session.
 

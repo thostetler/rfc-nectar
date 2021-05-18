@@ -38,7 +38,7 @@ From my perspective (which is generic and may be misguided, but worth thinking a
 
 And I mean _framework_, not a library. A mature framework with a community, established patterns, and ways of doing things. That is one thing that BBB got wrong: we picked a 'wrong' library. If we had picked a framework, we could have maybe not had to rewrite BBB in a new technology (on the other hand, even established frameworks cannot guarantee that - as the pain around Angular v1 vs v2 proves).
 
-> I think that the choice to go with Next.js wasn't just about improving SEO. One of the biggest complaints about Bumblebee was speed. With this hybrid approach we can get some real speed improvements. Not to mention that Next.js makes this whole process much easier by dynamically choosing how to render a page, and prefetching.  
+> I think that the choice to go with Next.js wasn't just about improving SEO. One of the biggest complaints about Bumblebee was speed. With this hybrid approach we can get some real speed improvements. Not to mention that Next.js makes this whole process much easier by dynamically choosing how to render a page, and prefetching.
 > We can also take advantage of incremental static generation, or statically generating a set of top abstract pages for example, further reducing server cycles.
 
 > Next.js is really it for production-ready frameworks, we could do some of this ourselves using vanilla React however. That is always an option, however I think the benefits of using a framework like Next.js really outweigh the downsides.
