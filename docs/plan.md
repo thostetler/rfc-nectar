@@ -69,3 +69,6 @@ This is still the case with Next.js, however there are always ways around it. We
 see: https://colinhacks.com/essays/building-a-spa-with-nextjs
 
 I don't think SPA makes sense for this application. It adds unnecessary complexity to the client like handling routing.
+
+### API
+We propose to build out a node.js wrapper library around the current REST API as part of this effort.  This is to allow for easy use between client and server, and also to potentially provide as a full-fledged package later on.
