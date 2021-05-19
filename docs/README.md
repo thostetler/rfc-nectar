@@ -16,15 +16,24 @@ Finally, speed is a common complaint from users, improvements are needed to incr
 
 Lighthouse report as of 5/18/2021: https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fui.adsabs.harvard.edu
 
+_Minification is fixed now..._
+
 This report was done on an emulated mobile device.
 
 Performance is real issue on less-capable devices.
 
 - Lots of unused code is downloaded, even with optimized bundles.
   - More modern tools like tree-shaking aren't used
-- Minification is
+- There is a lot of blocking code related just to evaluating the initial scripts
+  ![](images/perf-script-eval.png)
+
+There is a lot of room for improvement when it comes to performance.
+
+Regarding builds, that's one area Bumblebee is behind as well -- using Require.js for bundling requires explicit bundle creation configuration files. These are fragile and complex, and ultimately are only a band-aid solution. Not to mention that third-party libraries don't typically optimize their AMD builds resulting in huge mono-bundles that we have to load wholesale to use at all.
 
 ### Accessibility
+
+Lots of work has been done to improve the accessibility on Bumblebee over time. There is a decent heading structure, decent contrast, and tabbing control. However there are more subtle issues that remain, like handling screen resizing to very large fonts for vision impaired users
 
 ### SEO
 
